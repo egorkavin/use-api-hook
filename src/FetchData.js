@@ -10,7 +10,7 @@ export default function FetchData({ api, field, retries }) {
   if (status === 'success') {
     return (
       <ol>
-        {data instanceof Array ? (
+        {Array.isArray(data) ? (
           data.map(el => <li key={el[field]}>{el[field]}</li>)
         ) : (
           <li key={data.field}>{data[field]}</li>
