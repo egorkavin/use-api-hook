@@ -1,7 +1,7 @@
 import useAPI from './useAPI'
 
-export default function FetchData({ api, field }) {
-  const [data, error, status, refetch] = useAPI(api)
+export default function FetchData({ api, field, retries }) {
+  const [data, error, status, refetch] = useAPI(api, retries)
 
   if (status === 'loading') {
     return <span className="loader" />

@@ -1,23 +1,23 @@
 # useAPI Hook
 
-Custom hook for fetchin data from an API.
+Custom hook for fetching data from an API.
 
 ## Features
 
 1. Caching – if passed the same API with the same params, cached response will return.
 2. Three states – `loading`, `success` and `error`.
 3. Refetch – if `error` is returned, you possibly would want to send same request.
-4. [TODO] Automatic retries
+4. Automatic retries – specify a number of request retries to do in `error` case.
 
 ## Usage
 
 ```js
-import useAPI from './useAPI'
+const [data, error, status, refetch] = useAPI(api, retries)
 
-const [data, error, status, refetch] = useAPI(api)
 if (status === 'loading') {
   return <span className="loader" />
 }
+
 if (status === 'success') {
   return (
     <ol>
@@ -29,6 +29,7 @@ if (status === 'success') {
     </ol>
   )
 }
+
 if (status === 'error') {
   return (
     <div className="App__error">
