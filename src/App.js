@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import './App.css'
+import FetchData from './FetchData'
 
 function App() {
+  const [api, setAPI] = useState('https://jsonplaceholder.typicode.com/users/')
+  const [field, setField] = useState('name')
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    const [api, field] = new FormData(e.target)
+    setAPI(api[1])
+    setField(field[1])
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="api">API:</label>
+        <input
+          className="App__input"
+          type="text"
+          id="api"
+          name="api"
+          defaultValue={api}
+        />
+        <label htmlFor="field">Field:</label>
+        <input
+          className="App__input"
+          type="text"
+          id="field"
+          name="field"
+          defaultValue={field}
+        />
+        <button>Send request</button>
+      </form>
+      <FetchData api={api} field={field} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

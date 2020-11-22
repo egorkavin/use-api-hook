@@ -1,0 +1,33 @@
+import useAPI from './useAPI'
+
+export default function FetchData({ api, field }) {
+  const [data, error, status, refetch] = useAPI(api)
+
+  if (status === 'loading') {
+    return <span className="loader" />
+  }
+
+  if (status === 'success') {
+    return (
+      <ol>
+        {data instanceof Array ? (
+          data.map(el => <li key={el[field]}>{el[field]}</li>)
+        ) : (
+          <li key={data.field}>{data[field]}</li>
+        )}
+      </ol>
+    )
+  }
+
+  if (status === 'error') {
+    return (
+      <div className="App__error">
+        <p>Oops! Something went wrong:</p>
+        <p>{error.message}</p>
+        <button type="button" onClick={refetch}>
+          Retry
+        </button>
+      </div>
+    )
+  }
+}
